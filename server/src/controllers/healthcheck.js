@@ -1,4 +1,4 @@
-const healthcheck = (req, res) => {
+const healthcheck = (_req, res) => {
   res.status(200).send("OK");
 };
 
