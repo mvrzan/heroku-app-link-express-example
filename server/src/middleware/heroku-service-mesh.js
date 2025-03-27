@@ -1,3 +1,4 @@
+import { getCurrentTimestamp } from "../utils/loggingUtil.js";
 const salesforceSdk = await import("@heroku/salesforce-sdk-nodejs");
 
 const customAsyncHandlers = {};
@@ -6,6 +7,9 @@ export const initSalesforceSdk = async () => {
   /**
    * Middleware to enrich requests with Salesforce context
    */
+
+  console.log(`${getCurrentTimestamp()} 🏋 - herokuServiceMesh - Loading up the middleware...`);
+
   const salesforceMiddleware = async (req, _res, next) => {
     // Initialize SDK on request
     req.sdk = salesforceSdk.init();
@@ -15,11 +19,7 @@ export const initSalesforceSdk = async () => {
 
     if (!skipParsing) {
       // Enrich request with hydrated SDK APIs
-      const parsedRequest = req.sdk.salesforce.parseRequest(
-        req.headers,
-        req.body,
-        req.log || console // Using console as logger (consider using a proper logger)
-      );
+      const parsedRequest = req.sdk.salesforce.parseRequest(req.headers, req.body, req.log || console);
       req.sdk = Object.assign(req.sdk, parsedRequest);
     }
     next();
@@ -56,6 +56,8 @@ export const initSalesforceSdk = async () => {
       next();
     };
   };
+
+  console.log(`${getCurrentTimestamp()} 🦾 - herokuServiceMesh - Middleware ready!`);
 
   return {
     salesforceMiddleware,
