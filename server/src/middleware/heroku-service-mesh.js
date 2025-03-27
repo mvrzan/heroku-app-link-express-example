@@ -8,7 +8,7 @@ export const initSalesforceSdk = async () => {
    * Middleware to enrich requests with Salesforce context
    */
 
-  console.log(`${getCurrentTimestamp()} 🏋 - herokuServiceMesh - Loading up the middleware...`);
+  console.log(`${getCurrentTimestamp()} 🏋  - herokuServiceMesh - Loading up the middleware...`);
 
   const salesforceMiddleware = async (req, _res, next) => {
     // Initialize SDK on request
@@ -37,21 +37,21 @@ export const initSalesforceSdk = async () => {
    */
   const asyncMiddleware = (handler) => {
     return async (req, res, next) => {
-      console.info(`Async response for ${req.method} ${req.path}`);
+      console.log(`${getCurrentTimestamp()} 🔄 Async response for ${req.method} ${req.path}`);
 
       const routeKey = `${req.method} ${req.path}`;
       customAsyncHandlers[routeKey] = handler;
 
       // Send immediate response
-      // res.status(201).send();
+      res.status(201).send();
 
       // Process request asynchronously
       try {
         await handler(req, res);
         req.sdk.asyncComplete = true;
-        console.info(`Async ${routeKey} completed`);
+        console.log(`${getCurrentTimestamp()} 🔄 Async ${routeKey} completed!`);
       } catch (error) {
-        console.error(`Error in async handler for ${routeKey}:`, error);
+        console.error(`${getCurrentTimestamp()} ❌ Error in async handler for ${routeKey}:`, error);
       }
       next();
     };
