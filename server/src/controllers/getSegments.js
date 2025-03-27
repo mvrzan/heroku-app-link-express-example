@@ -1,13 +1,48 @@
+import { getCurrentTimestamp } from "../utils/loggingUtil.js";
+
 const getSegments = async (req, res) => {
-  const { event, context, logger } = req.sdk;
-
   try {
-    const accessToken = context?.org?.accessToken;
-    logger.info("accessToken", accessToken);
+    console.log(`${getCurrentTimestamp()} 🪬 - getSegments - Request received...`);
 
-    res.status(200).json({ message: "Route getSegments invocation was successful!", accessToken });
+    const { context } = req.sdk;
+    const accessToken = context?.org?.accessToken;
+    const domainUrl = context?.org?.domainUrl;
+
+    console.log(`${getCurrentTimestamp()} 👀 - getSegments - Fetching segments...`);
+
+    const response = await fetch(`${domainUrl}/services/data/v63.0/ssot/segments`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const data = await response.json();
+
+    const formattedSegments = data.segments?.map((segment) => ({
+      name: segment.displayName,
+      apiName: segment.apiName,
+      dataSpace: segment.dataSpace,
+      segmentDefinitionId: segment.marketSegmentDefinitionId,
+      segmentId: segment.marketSegmentId,
+      segmentStatus: segment.segmentStatus,
+      publishStatus: segment.publishStatus ?? "NOT PUBLISHED",
+      segmentType: segment.segmentType,
+    }));
+
+    if (!response.ok) {
+      throw new Error(
+        `There was an error when trying to get segment information: ${response.status} - ${response.statusText}`
+      );
+    }
+
+    console.log(`${getCurrentTimestamp()} ✅ - getSegments - Segment information successfully provided!`);
+
+    res.status(200).send({
+      message: "Data Cloud Segments",
+      segments: formattedSegments,
+    });
   } catch (error) {
-    logger.error(error.message);
+    console.error(`${getCurrentTimestamp()} ❌ - getSegments - Error occurred: ${error.message}`);
     res.status(500).send(error);
   }
 };
