@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(noneSalesforceRoutes);
-app.use(await salesforceRoutes);
+app.use(salesforceRoutes);
 
 app.listen(port, () => {
   console.log(`${getCurrentTimestamp()} 🎬 Authentication server listening on port: ${port}`);
