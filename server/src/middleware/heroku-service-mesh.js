@@ -10,7 +10,7 @@ export const initSalesforceSdk = async () => {
 
   console.log(`${getCurrentTimestamp()} 🏋  - herokuServiceMesh - Loading up the middleware...`);
 
-  const salesforceMiddleware = async (req, _res, next) => {
+  const salesforceMiddleware = async (req, res, next) => {
     // Initialize SDK on request
     req.sdk = salesforceSdk.init();
 
@@ -18,9 +18,18 @@ export const initSalesforceSdk = async () => {
     const skipParsing = req.route?.salesforceConfig?.parseRequest === false;
 
     if (!skipParsing) {
-      // Enrich request with hydrated SDK APIs
-      const parsedRequest = req.sdk.salesforce.parseRequest(req.headers, req.body, req.log || console);
-      req.sdk = Object.assign(req.sdk, parsedRequest);
+      try {
+        // Enrich request with hydrated SDK APIs
+        const parsedRequest = req.sdk.salesforce.parseRequest(req.headers, req.body, req.log || console);
+        req.sdk = Object.assign(req.sdk, parsedRequest);
+      } catch (error) {
+        // Return proper error response instead of crashing
+        console.error(`${getCurrentTimestamp()} ❌ Salesforce authentication error:`, error.message);
+        return res.status(401).json({
+          error: "Invalid request",
+          message: "Missing or invalid Salesforce authentication",
+        });
+      }
     }
     next();
   };

@@ -40,6 +40,6 @@ const initMiddleware = async () => {
   }
 };
 
-initMiddleware();
+await initMiddleware();
 
 export default salesforceRoutes;
