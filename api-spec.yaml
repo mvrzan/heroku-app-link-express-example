@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Heroku App Link Express Example API
+  description: API for integrating with Salesforce through Heroku App Link
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:3000
+    description: Local development server
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        error:
+          type: string
+          description: Error type or code
+    SuccessMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Success message
+    Segment:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of the segment
+        apiName:
+          type: string
+          description: API name of the segment
+        dataSpace:
+          type: string
+          description: Data space the segment belongs to
+        segmentDefinitionId:
+          type: string
+          description: Market segment definition ID
+        segmentId:
+          type: string
+          description: Market segment ID
+        segmentStatus:
+          type: string
+          description: Status of the segment
+        publishStatus:
+          type: string
+          description: Publication status of the segment
+        segmentType:
+          type: string
+          description: Type of the segment
+    SegmentsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Response message
+        segments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Segment"
+  securitySchemes:
+    salesforceOAuth:
+      type: http
+      scheme: bearer
+      description: Salesforce OAuth token
+    clientContext:
+      type: apiKey
+      in: header
+      name: X-Client-Context
+      description: Salesforce client context header
+
+paths:
+  /v1/localTestRoute:
+    get:
+      summary: Test endpoint
+      description: Simple test endpoint to verify the API is working
+      operationId: localTestRoute
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessMessage"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/handleDataCloudDataChangeEvent:
+    post:
+      summary: Handle Data Cloud Data Change Event
+      description: Processes data change events from Salesforce Data Cloud
+      operationId: handleDataCloudDataChangeEvent
+      security:
+        - salesforceOAuth: []
+        - clientContext: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Data Cloud change event payload
+      responses:
+        "201":
+          description: Accepted for processing
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/getSegments:
+    get:
+      summary: Get Salesforce Data Cloud Segments
+      description: Retrieves all segments from Salesforce Data Cloud
+      operationId: getSegments
+      responses:
+        "200":
+          description: List of segments retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SegmentsResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /healthcheck:
+    get:
+      summary: Health Check
+      description: Verify the service is running properly
+      operationId: healthcheck
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+        "500":
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
