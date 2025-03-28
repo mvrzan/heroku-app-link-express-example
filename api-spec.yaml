@@ -63,26 +63,7 @@ components:
           items:
             $ref: "#/components/schemas/Segment"
     SegmentCreateRequest:
-      type: object
-      required:
-        - name
-        - apiName
-      properties:
-        name:
-          type: string
-          description: Display name of the segment
-        apiName:
-          type: string
-          description: API name of the segment
-        description:
-          type: string
-          description: Description of the segment
-        dataSpace:
-          type: string
-          description: Data space to create the segment in
-        criteria:
-          type: object
-          description: Segment criteria definition
+      type: string
   securitySchemes:
     salesforceOAuth:
       type: http
