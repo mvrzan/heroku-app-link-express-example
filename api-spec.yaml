@@ -144,22 +144,6 @@ paths:
       security:
         - salesforceOAuth: []
         - clientContext: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - requestType
-              properties:
-                requestType:
-                  type: string
-                  description: Type of segments request
-                  example: "ALL"
-                filters:
-                  type: object
-                  description: Optional filters to apply to the segment list
       responses:
         "200":
           description: List of segments retrieved successfully
