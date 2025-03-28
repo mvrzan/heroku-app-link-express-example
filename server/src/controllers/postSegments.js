@@ -8,6 +8,8 @@ const postSegments = async (req, res) => {
     const accessToken = context?.org?.accessToken;
     const domainUrl = context?.org?.domainUrl;
 
+    console.log("Incoming request", req.body);
+
     console.log(`${getCurrentTimestamp()} 👀 - postSegments - Fetching segments...`);
 
     const response = await fetch(`${domainUrl}/services/data/v63.0/ssot/segments`, {
