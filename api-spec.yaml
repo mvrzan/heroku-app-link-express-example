@@ -6,6 +6,8 @@ info:
 servers:
   - url: http://127.0.0.1:3000
     description: Local development server
+  - url: https://express-integration-app-7cfb8c011908.herokuapp.com
+    description: Heroku production server
 components:
   schemas:
     Error:
@@ -60,6 +62,27 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Segment"
+    SegmentCreateRequest:
+      type: object
+      required:
+        - name
+        - apiName
+      properties:
+        name:
+          type: string
+          description: Display name of the segment
+        apiName:
+          type: string
+          description: API name of the segment
+        description:
+          type: string
+          description: Description of the segment
+        dataSpace:
+          type: string
+          description: Data space to create the segment in
+        criteria:
+          type: object
+          description: Segment criteria definition
   securitySchemes:
     salesforceOAuth:
       type: http
@@ -132,11 +155,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /v1/getSegments:
+  /v1/segments:
     get:
       summary: Get Salesforce Data Cloud Segments
       description: Retrieves all segments from Salesforce Data Cloud
       operationId: getSegments
+      security:
+        - salesforceOAuth: []
+        - clientContext: []
       responses:
         "200":
           description: List of segments retrieved successfully
@@ -144,6 +170,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SegmentsResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      summary: Create Salesforce Data Cloud Segment
+      description: Creates a new segment in Salesforce Data Cloud
+      operationId: postSegments
+      security:
+        - salesforceOAuth: []
+        - clientContext: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SegmentCreateRequest"
+      responses:
+        "201":
+          description: Segment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                  segment:
+                    $ref: "#/components/schemas/Segment"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "401":
           description: Unauthorized
           content:
