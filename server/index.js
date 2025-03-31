@@ -9,12 +9,6 @@ import { getCurrentTimestamp } from "./src/utils/loggingUtil.js";
 const app = express();
 const port = process.env.APP_PORT || process.env.PORT || 3000;
 
-// Add a basic root route for health checks
-app.get("/", (req, res) => {
-  console.log("This works!");
-  res.status(200).send("Express server running");
-});
-
 const corsOptions = {
   origin: "http://localhost",
 };
