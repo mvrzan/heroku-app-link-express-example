@@ -5,13 +5,11 @@
 
 # Heroku AppLink Express Example
 
-## Technologies used
-
-- [Node.js](https://nodejs.org/en)
-- [Express](https://expressjs.com/)
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [Heroku](https://www.heroku.com/)
-- [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true)
+- [Heroku AppLink Express Example](#heroku-applink-express-example)
+  - [What does it do?](#what-does-it-do)
+  - [How does it work?](#how-does-it-work)
+    - [Architecture diagram](#architecture-diagram)
+  - [Technologies used](#technologies-used)
 
 For a more detailed overview of the development & production dependencies, please check [`package.json`](./server/package.json).
 
@@ -45,3 +43,11 @@ The application uses the Heroku service mesh middleware to authenticate and inte
 ```
 
 ### Architecture diagram
+
+## Technologies used
+
+- [Node.js](https://nodejs.org/en)
+- [Express](https://expressjs.com/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Heroku](https://www.heroku.com/)
+- [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true)
