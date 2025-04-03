@@ -10,6 +10,8 @@
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
   - [Technologies used](#technologies-used)
+- [License](#license)
+- [Disclaimer](#disclaimer)
 
 For a more detailed overview of the development & production dependencies, please check [`package.json`](./server/package.json).
 
@@ -51,3 +53,11 @@ The application uses the Heroku service mesh middleware to authenticate and inte
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Heroku](https://www.heroku.com/)
 - [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true)
+
+# License
+
+[MIT](http://www.opensource.org/licenses/mit-license.html)
+
+# Disclaimer
+
+This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Salesforce bears no responsibility to support the use or implementation of this software.
