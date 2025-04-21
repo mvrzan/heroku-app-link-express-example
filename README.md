@@ -7,7 +7,10 @@
 
 Learn how you can leverage Heroku AppLink with a Node.js Express server to exposes your Heroku app as API services in Salesforce.
 
+# Table of Contents
+
 - [Heroku AppLink Express Example](#heroku-applink-express-example)
+- [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
