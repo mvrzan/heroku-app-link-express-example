@@ -2,10 +2,10 @@ import { Router } from "express";
 import handleDataCloudDataChangeEvent from "../controllers/handleDataCloudDataChangeEvent.js";
 import getSegments from "../controllers/getSegments.js";
 import postSegments from "../controllers/postSegments.js";
+import getLimits from "../controllers/getLimits.js";
 import { initSalesforceSdk } from "../middleware/heroku-service-mesh.js";
 import healthcheck from "../controllers/healthcheck.js";
 import { getCurrentTimestamp } from "../utils/loggingUtil.js";
-import { parseRequest } from "@heroku/salesforce-sdk-nodejs";
 
 const salesforceRoutes = Router();
 
@@ -27,6 +27,8 @@ const initMiddleware = async () => {
       salesforceMiddleware,
       getSegments
     );
+
+    salesforceRoutes.get("/v1/limits", withSalesforceConfig({ parseRequest: true }), salesforceMiddleware, getLimits);
 
     salesforceRoutes.post(
       "/v1/segments",
