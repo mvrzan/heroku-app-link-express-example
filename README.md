@@ -13,8 +13,6 @@
 - [License](#license)
 - [Disclaimer](#disclaimer)
 
-For a more detailed overview of the development & production dependencies, please check [`package.json`](./server/package.json).
-
 ## What does it do?
 
 This project demonstrates how to build a Node.js Express application that integrates with Salesforce using Heroku App Link. It provides a working example of an API that can interact with Salesforce Data Cloud, handle data change events, and perform operations on segments.
@@ -33,13 +31,13 @@ The application uses the Heroku service mesh middleware to authenticate and inte
 ├── server/
 │   ├── src/
 │   │   ├── controllers/     # API endpoint logic
-│   │   ├── middleware/      # Express middleware
+│   │   ├── middleware/      # Heroku Service Mesh middleware
 │   │   ├── routes/          # Route definitions
 │   │   └── utils/           # Helper utilities
 │   ├── index.js             # Express app entry point
 │   └── package.json         # Server dependencies
 ├── api-spec.yaml            # OpenAPI specification
-├── Procfile                 # Heroku deployment configuration
+├── Procfile                  # Heroku deployment configuration
 ├── package.json             # Root package.json for Heroku
 └── README.md                # This file
 ```
@@ -53,6 +51,8 @@ The application uses the Heroku service mesh middleware to authenticate and inte
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Heroku](https://www.heroku.com/)
 - [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true)
+
+For a more detailed overview of the development & production dependencies, please check [`package.json`](./server/package.json).
 
 # License
 
