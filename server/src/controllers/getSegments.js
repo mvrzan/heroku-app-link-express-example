@@ -8,6 +8,10 @@ const getSegments = async (req, res) => {
     const accessToken = context?.org?.accessToken;
     const domainUrl = context?.org?.domainUrl;
 
+    const org = await req.sdk.addons.herokuIntegration.getConnection("dc-epai-org");
+
+    console.log("org", org);
+
     console.log(`${getCurrentTimestamp()} 👀 - getSegments - Fetching segments...`);
 
     const response = await fetch(`${domainUrl}/services/data/v63.0/ssot/segments`, {
