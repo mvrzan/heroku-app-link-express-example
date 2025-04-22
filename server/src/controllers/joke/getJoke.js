@@ -7,8 +7,20 @@ const getJoke = async (_req, res) => {
 
     const response = await JokeAPI.getJokes();
 
-    console.log(response);
     const data = await response.json();
+
+    if (!data.setup) {
+      const cleanJoke = data.joke.replace(/\n/g, " ");
+
+      res.status(200).send({
+        message: "A funny joke!",
+        joke: cleanJoke,
+      });
+
+      console.log(`${getCurrentTimestamp()} ✅ - getJoke - A joke was successfully provided!`);
+
+      return;
+    }
 
     const joke = `${data.setup} --- ${data.delivery}`;
 
