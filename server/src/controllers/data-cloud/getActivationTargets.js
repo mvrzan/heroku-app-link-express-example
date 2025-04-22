@@ -1,4 +1,4 @@
-import { getCurrentTimestamp } from "../utils/loggingUtil.js";
+import { getCurrentTimestamp } from "../../utils/loggingUtil.js";
 
 const getActivationTargets = async (req, res) => {
   try {

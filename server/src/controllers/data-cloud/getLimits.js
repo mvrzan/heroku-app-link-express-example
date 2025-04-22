@@ -1,4 +1,4 @@
-import { getCurrentTimestamp } from "../utils/loggingUtil.js";
+import { getCurrentTimestamp } from "../../utils/loggingUtil.js";
 
 const getLimits = async (req, res) => {
   try {

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import handleDataCloudDataChangeEvent from "../controllers/handleDataCloudDataChangeEvent.js";
-import getSegments from "../controllers/getSegments.js";
-import getLimits from "../controllers/getLimits.js";
-import getActivationTargets from "../controllers/getActivationTargets.js";
+import handleDataCloudDataChangeEvent from "../controllers/data-cloud/handleDataCloudDataChangeEvent.js";
+import getSegments from "../controllers/data-cloud/getSegments.js";
+import getLimits from "../controllers/data-cloud/getLimits.js";
+import getActivationTargets from "../controllers/data-cloud/getActivationTargets.js";
 import { initSalesforceSdk } from "../middleware/heroku-service-mesh.js";
 import healthcheck from "../controllers/healthcheck.js";
 import { getCurrentTimestamp } from "../utils/loggingUtil.js";
