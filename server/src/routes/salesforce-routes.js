@@ -3,6 +3,7 @@ import handleDataCloudDataChangeEvent from "../controllers/handleDataCloudDataCh
 import getSegments from "../controllers/getSegments.js";
 import postSegments from "../controllers/postSegments.js";
 import getLimits from "../controllers/getLimits.js";
+import getActivationTargets from "../controllers/getActivationTargets.js";
 import { initSalesforceSdk } from "../middleware/heroku-service-mesh.js";
 import healthcheck from "../controllers/healthcheck.js";
 import { getCurrentTimestamp } from "../utils/loggingUtil.js";
@@ -29,6 +30,13 @@ const initMiddleware = async () => {
     );
 
     salesforceRoutes.get("/v1/limits", withSalesforceConfig({ parseRequest: true }), salesforceMiddleware, getLimits);
+
+    salesforceRoutes.get(
+      "/v1/activationTargets",
+      withSalesforceConfig({ parseRequest: true }),
+      salesforceMiddleware,
+      getActivationTargets
+    );
 
     salesforceRoutes.post(
       "/v1/segments",
