@@ -6,8 +6,6 @@ info:
 servers:
   - url: http://127.0.0.1:3000
     description: Local development server
-  - url: https://express-integration-app-7cfb8c011908.herokuapp.com
-    description: Heroku production server
 components:
   schemas:
     Error:
@@ -62,6 +60,54 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Segment"
+    JokeResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Response message
+        joke:
+          type: string
+          description: A joke text
+    TodosResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Response message
+        todos:
+          type: object
+          description: Todo items
+    TodoCreateRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: User ID for the todo
+        title:
+          type: string
+          description: Title of the todo
+        completed:
+          type: boolean
+          description: Completion status of the todo
+    ActivationTargetsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Response message
+        activationTargets:
+          type: object
+          description: Data Cloud activation targets
+    LimitsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Response message
+        limits:
+          type: object
+          description: Data Cloud limits information
     SegmentCreateRequest:
       type: string
   securitySchemes:
@@ -76,20 +122,91 @@ components:
       description: Salesforce client context header
 
 paths:
-  /v1/localTestRoute:
+  /v1/joke:
     get:
-      summary: Test endpoint
-      description: Simple test endpoint to verify the API is working
-      operationId: localTestRoute
+      summary: Get a joke
+      description: Retrieves a random joke
+      operationId: getJoke
       responses:
         "200":
-          description: Successful response
+          description: Successfully retrieved a joke
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SuccessMessage"
+                $ref: "#/components/schemas/JokeResponse"
         "500":
           description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/get-todos:
+    get:
+      summary: Get todos
+      description: Retrieves todo items for a user
+      operationId: getTodos
+      parameters:
+        - name: userId
+          in: query
+          description: ID of the user to get todos for
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Successfully retrieved todos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodosResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/post-todos:
+    post:
+      summary: Create a todo
+      description: Creates a new todo item
+      operationId: postTodos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoCreateRequest"
+      responses:
+        "200":
+          description: Successfully created a todo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodosResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/healthcheck:
+    get:
+      summary: Health Check
+      description: Verify the service is running properly
+      operationId: healthcheck
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+        "500":
+          description: Service is unhealthy
           content:
             application/json:
               schema:
@@ -164,38 +281,21 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-    post:
-      summary: Create Salesforce Data Cloud Segment
-      description: Creates a new segment in Salesforce Data Cloud
-      operationId: postSegments
+  /v1/limits:
+    get:
+      summary: Get Data Cloud Limits
+      description: Retrieves limits information from Salesforce Data Cloud
+      operationId: getLimits
       security:
         - salesforceOAuth: []
         - clientContext: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SegmentCreateRequest"
       responses:
-        "201":
-          description: Segment created successfully
+        "200":
+          description: Successfully retrieved limits information
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                  segment:
-                    $ref: "#/components/schemas/Segment"
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/LimitsResponse"
         "401":
           description: Unauthorized
           content:
@@ -209,21 +309,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /healthcheck:
+  /v1/activationTargets:
     get:
-      summary: Health Check
-      description: Verify the service is running properly
-      operationId: healthcheck
+      summary: Get Data Cloud Activation Targets
+      description: Retrieves activation targets from Salesforce Data Cloud
+      operationId: getActivationTargets
+      security:
+        - salesforceOAuth: []
+        - clientContext: []
       responses:
         "200":
-          description: Service is healthy
+          description: Successfully retrieved activation targets
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: OK
+                $ref: "#/components/schemas/ActivationTargetsResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "500":
-          description: Service is unhealthy
+          description: Server error
           content:
             application/json:
               schema:
