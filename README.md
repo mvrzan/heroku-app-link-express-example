@@ -36,7 +36,7 @@ Learn how you can leverage Heroku AppLink with a Node.js Express server to expos
 
 ## What does it do?
 
-This project demonstrates how to build a Node.js Express application that integrates with Salesforce using Heroku AppLink. It provides a working example of an API that can interact with Salesforce Data Cloud, handle data change events, and expose endpoints for both Salesforce and non-Salesforce operations.
+This project demonstrates how to build a Node.js Express application that integrates with Salesforce using [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true). It provides a working example of an API that can interact with Salesforce Data Cloud, handle data change events, and expose endpoints for both Salesforce and non-Salesforce operations.
 
 ## How does it work?
 
@@ -63,6 +63,7 @@ This application leverages the Heroku App Link and Service Mesh to create a brid
 
    - For non-Salesforce endpoints:
      - Standard Express handlers process requests without Salesforce authentication
+     - Applicable for local development only
 
 4. **Async Processing**
 
@@ -74,6 +75,7 @@ This application leverages the Heroku App Link and Service Mesh to create a brid
 5. **API Exposure**
    - Once deployed to Heroku, the API becomes available for connection from Salesforce
    - The app can be linked as a resource in Salesforce using Heroku App Link
+   - Heroku endpoints can easily be selected with Agentforce Actions
 
 By following this architecture, your Express application becomes a seamless extension of Salesforce, enabling custom functionality and integrations without complex authentication code.
 
