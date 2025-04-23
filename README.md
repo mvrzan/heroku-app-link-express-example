@@ -7,6 +7,8 @@
 
 Learn how you can leverage Heroku AppLink with a Node.js Express server to exposes your Heroku app as API services in Salesforce.
 
+> **Disclaimer:** This repository demonstrates the Heroku AppLink feature, which is currently in Pilot status as of this writing. Features, functionality, and implementation details may change significantly before general availability. This is not official Salesforce or Heroku code and was created for testing and demonstration purposes only. Use at your own risk and expect that some aspects may need adaptation as the feature evolves.
+
 # Table of Contents
 
 - [Heroku AppLink Express Example](#heroku-applink-express-example)
@@ -23,6 +25,7 @@ Learn how you can leverage Heroku AppLink with a Node.js Express server to expos
   - [Requirements](#requirements)
   - [Setup](#setup)
     - [Local environment configuration](#local-environment-configuration)
+    - [](#)
   - [Deployment](#deployment)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
@@ -174,6 +177,10 @@ Start the development server
 ```
 npm run dev
 ```
+
+###
+
+In order to get the appropriate `.env` variables for local development and to make the Heroku AppLink integration actually work, please follow the [setup guide](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true).
 
 Once all of this is done, your server will be available at http://localhost:3000
 
