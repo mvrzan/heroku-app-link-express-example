@@ -4,7 +4,6 @@ import getSegments from "../controllers/data-cloud/getSegments.js";
 import getLimits from "../controllers/data-cloud/getLimits.js";
 import getActivationTargets from "../controllers/data-cloud/getActivationTargets.js";
 import { initSalesforceSdk } from "../middleware/heroku-service-mesh.js";
-import healthcheck from "../controllers/healthcheck.js";
 import { getCurrentTimestamp } from "../utils/loggingUtil.js";
 
 const salesforceRoutes = Router();
@@ -35,13 +34,6 @@ const initMiddleware = async () => {
       withSalesforceConfig({ parseRequest: true }),
       salesforceMiddleware,
       getActivationTargets
-    );
-
-    salesforceRoutes.get(
-      "/healthcheck",
-      withSalesforceConfig({ parseRequest: false }),
-      salesforceMiddleware,
-      healthcheck
     );
 
     console.log(`${getCurrentTimestamp()} ✅ Salesforce routes registered successfully!`);
