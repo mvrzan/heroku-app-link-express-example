@@ -53,6 +53,8 @@ The application uses the Heroku service mesh middleware to authenticate and inte
 
 ![](./screenshots/architecture-diagram.png)
 
+This architecture diagram references the work done [here](https://github.com/heroku/heroku-integration-service-mesh).
+
 ## Technologies used
 
 - [Node.js](https://nodejs.org/en)
