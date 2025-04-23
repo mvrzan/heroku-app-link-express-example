@@ -1,8 +1,8 @@
 import { Router } from "express";
 import localTestRoute from "../controllers/localTestRoute.js";
-import getJoke from "../controllers/joke/getJoke.js";
-import getTodos from "../controllers/todo/getTodos.js";
-import postTodos from "../controllers/todo/postTodos.js";
+import getJoke from "../controllers/none-salesforce/getJoke.js";
+import getTodos from "../controllers/none-salesforce/getTodos.js";
+import postTodos from "../controllers/none-salesforce/postTodos.js";
 
 const noneSalesforceRoutes = Router();
 
