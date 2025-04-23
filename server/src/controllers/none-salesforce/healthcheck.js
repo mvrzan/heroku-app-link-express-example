@@ -1,6 +1,6 @@
 import { getCurrentTimestamp } from "../../utils/loggingUtil.js";
 
-const healthcheck = (req, res) => {
+const healthcheck = (_req, res) => {
   try {
     console.log(`${getCurrentTimestamp()} 🏥 - healthcheck - Healthcheck request received!`);
 
