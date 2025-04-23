@@ -13,13 +13,16 @@ Learn how you can leverage Heroku AppLink with a Node.js Express server to expos
 - [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
-  - [How does it work?](#how-does-it-work-1)
   - [Project Structure](#project-structure)
   - [API Documentation](#api-documentation)
     - [Non-Salesforce Endpoints](#non-salesforce-endpoints)
     - [Salesforce Endpoints](#salesforce-endpoints)
     - [Architecture diagram](#architecture-diagram)
   - [Technologies used](#technologies-used)
+- [Configuration](#configuration)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+    - [Local environment configuration](#local-environment-configuration)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
 - [License](#license)
@@ -30,8 +33,6 @@ Learn how you can leverage Heroku AppLink with a Node.js Express server to expos
 ## What does it do?
 
 This project demonstrates how to build a Node.js Express application that integrates with Salesforce using Heroku AppLink. It provides a working example of an API that can interact with Salesforce Data Cloud, handle data change events, and expose endpoints for both Salesforce and non-Salesforce operations.
-
-## How does it work?
 
 ## How does it work?
 
@@ -127,6 +128,53 @@ This architecture diagram references the work done [here](https://github.com/her
 - [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true)
 
 For a more detailed overview of the development & production dependencies, please check [`package.json`](./server/package.json).
+
+# Configuration
+
+## Requirements
+
+To run this application locally, you will need the following:
+
+- An active Salesforce account with Data Cloud
+- Node.js version 20 or later installed (type `node -v` in your terminal to check). Follow [instructions](https://nodejs.org/en/download) if you don't have node installed
+- npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
+- git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
+- A [Heroku account](https://signup.heroku.com/)
+
+## Setup
+
+### Local environment configuration
+
+The first step is to clone the repository and install the project dependencies via a terminal interface by running the `npm install` in the `server` folder:
+
+```
+cd heroku-app-link-express-example/server
+npm install
+```
+
+The second step is to create a `.env` file in the `server` folder. Find the `.env.example` file, copy it and rename it to `.env`.
+
+```
+cd heroku-app-link-express-example/server
+cp .env.example .env
+```
+
+Edit the newly created `.env` files and update the variables with your account specific information.
+
+```
+# Heroku integration details
+HEROKU_INTEGRATION_API_URL=
+HEROKU_INTEGRATION_TOKEN=
+HEROKU_DATA_CLOUD_CONNECTION_NAME=
+```
+
+Start the development server
+
+```
+npm run dev
+```
+
+Once all of this is done, your server will be available at http://localhost:3000
 
 ## Troubleshooting
 
