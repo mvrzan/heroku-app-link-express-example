@@ -9,6 +9,13 @@ const postTodos = async (req, res) => {
     const completed = req.body?.completed ? "none" : req.body.completed;
     const id = Math.floor(Math.random() * 11) + 10;
 
+    console.log("Todo item details", {
+      title,
+      completed,
+      userId,
+      id,
+    });
+
     const response = await fetch("https://jsonplaceholder.typicode.com/todos", {
       method: "POST",
       body: JSON.stringify({
