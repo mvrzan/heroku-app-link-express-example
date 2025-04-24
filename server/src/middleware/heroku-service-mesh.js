@@ -52,7 +52,9 @@ export const initSalesforceSdk = async () => {
       customAsyncHandlers[routeKey] = handler;
 
       // Send immediate response
-      res.status(201).send();
+      res.status(201).send({
+        message: `Async ${routeKey} completed!`,
+      });
 
       // Process request asynchronously
       try {
