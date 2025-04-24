@@ -6,11 +6,10 @@ const postTodos = async (req, res) => {
 
     const userId = !req.body?.userId ? 1 : req.body.userId;
     const title = !req.body?.title ? "none" : req.body.title;
-    const completed = !req.body?.completed ? "none" : req.body.completed;
+    const completed = !req.body?.completed === undefined ? "none" : req.body.completed;
     const id = Math.floor(Math.random() * 11) + 10;
 
-    console.log(req.body);
-    console.log("Todo item details", {
+    console.log(`${getCurrentTimestamp()} 💽 - postTodos - Todo item details`, {
       title,
       completed,
       userId,
