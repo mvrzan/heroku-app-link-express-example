@@ -10,6 +10,11 @@ const getLimits = async (req, res) => {
 
     console.log(`${getCurrentTimestamp()} 👀 - getLimits - Fetching Data Cloud limits...`);
 
+    console.log({
+      accessToken,
+      domainUrl,
+    });
+
     const response = await fetch(`${domainUrl}/services/data/v63.0/limits`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -23,6 +28,8 @@ const getLimits = async (req, res) => {
         `There was an error when trying to get Data Cloud limit information: ${response.status} - ${response.statusText}`
       );
     }
+
+    console.log("data", data);
 
     console.log(`${getCurrentTimestamp()} ✅ - getLimits - Data Cloud limit information successfully provided!`);
 
