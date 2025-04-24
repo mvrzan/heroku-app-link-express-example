@@ -4,9 +4,9 @@ const postTodos = async (req, res) => {
   try {
     console.log(`${getCurrentTimestamp()} 🪬 - postTodos - Request received...`);
 
-    const userId = req.body?.userId ? 1 : req.body.userId;
-    const title = req.body?.title ? "none" : req.body.title;
-    const completed = req.body?.completed ? "none" : req.body.completed;
+    const userId = !req.body?.userId ? 1 : req.body.userId;
+    const title = !req.body?.title ? "none" : req.body.title;
+    const completed = !req.body?.completed ? "none" : req.body.completed;
     const id = Math.floor(Math.random() * 11) + 10;
 
     console.log(req.body);
