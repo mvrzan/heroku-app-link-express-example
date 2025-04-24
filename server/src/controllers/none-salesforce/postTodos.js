@@ -9,6 +9,7 @@ const postTodos = async (req, res) => {
     const completed = req.body?.completed ? "none" : req.body.completed;
     const id = Math.floor(Math.random() * 11) + 10;
 
+    console.log(req.body);
     console.log("Todo item details", {
       title,
       completed,
