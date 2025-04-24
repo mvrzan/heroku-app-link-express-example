@@ -37,7 +37,7 @@ const postTodos = async (req, res) => {
       );
     }
 
-    console.log(`${getCurrentTimestamp()} ✅ - postTodos - Todos were successfully provided!`);
+    console.log(`${getCurrentTimestamp()} ✅ - postTodos - Todos were successfully published!`);
 
     res.status(200).send({
       message: "Todo items",
