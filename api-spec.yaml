@@ -77,7 +77,20 @@ components:
           description: Response message
         todos:
           type: object
-          description: Todo items
+          description: Todo item
+          properties:
+            userId:
+              type: integer
+              description: ID of the user who owns this todo
+            id:
+              type: integer
+              description: Unique identifier for the todo item
+            title:
+              type: string
+              description: Title of the todo item
+            completed:
+              type: boolean
+              description: Whether the todo item is completed
     TodoCreateRequest:
       type: object
       properties:
@@ -108,6 +121,25 @@ components:
         limits:
           type: object
           description: Data Cloud limits information
+          additionalProperties:
+            type: object
+            properties:
+              Max:
+                type: integer
+                description: Maximum limit value
+              Remaining:
+                type: integer
+                description: Remaining value for this limit
+            example:
+              AnalyticsExternalDataSizeMB:
+                Max: 40960
+                Remaining: 40960
+              DailyApiRequests:
+                Max: 441450
+                Remaining: 436699
+              DailyBulkApiBatches:
+                Max: 15000
+                Remaining: 15000
     SegmentCreateRequest:
       type: string
   securitySchemes:
@@ -127,6 +159,17 @@ paths:
       summary: Get a joke
       description: Retrieves a random joke
       operationId: getJoke
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dummy:
+                  type: string
+                  description: Dummy parameter to satisfy system requirements
+                  example: "dummy_value"
       responses:
         "200":
           description: Successfully retrieved a joke
@@ -153,6 +196,17 @@ paths:
           schema:
             type: integer
             default: 1
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dummy:
+                  type: string
+                  description: Dummy parameter to satisfy system requirements
+                  example: "dummy_value"
       responses:
         "200":
           description: Successfully retrieved todos
@@ -261,6 +315,17 @@ paths:
       security:
         - salesforceOAuth: []
         - clientContext: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dummy:
+                  type: string
+                  description: Dummy parameter to satisfy system requirements
+                  example: "dummy_value"
       responses:
         "200":
           description: List of segments retrieved successfully
@@ -289,6 +354,17 @@ paths:
       security:
         - salesforceOAuth: []
         - clientContext: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dummy:
+                  type: string
+                  description: Dummy parameter to satisfy system requirements
+                  example: "dummy_value"
       responses:
         "200":
           description: Successfully retrieved limits information
@@ -317,6 +393,17 @@ paths:
       security:
         - salesforceOAuth: []
         - clientContext: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dummy:
+                  type: string
+                  description: Dummy parameter to satisfy system requirements
+                  example: "dummy_value"
       responses:
         "200":
           description: Successfully retrieved activation targets
