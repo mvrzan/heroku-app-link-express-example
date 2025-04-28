@@ -50,6 +50,42 @@ components:
         segmentType:
           type: string
           description: Type of the segment
+    ActivationTarget:
+      type: object
+      properties:
+        name:
+        createdBy:
+          type: string
+          description: ID of the user who created the activation target
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation date and time
+        dataSpace:
+          type: string
+          description: Data space for the activation target
+        activationTargetId:
+          type: string
+          description: Unique identifier for the activation target
+        lastModifiedBy:
+          type: string
+          description: ID of the user who last modified the activation target
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: Last modification date and time
+        activationTargetName:
+          type: string
+          description: Name of the activation target
+        platformName:
+          type: string
+          description: Platform name
+        platformType:
+          type: string
+          description: Type of platform
+        activationTargetStatus:
+          type: string
+          description: Status of the activation target
     SegmentsResponse:
       type: object
       properties:
@@ -110,8 +146,10 @@ components:
           type: string
           description: Response message
         activationTargets:
-          type: object
-          description: Data Cloud activation targets
+          type: array
+          description: List of Data Cloud activation targets
+          items:
+            $ref: "#/components/schemas/ActivationTarget"
     LimitsResponse:
       type: object
       properties:
