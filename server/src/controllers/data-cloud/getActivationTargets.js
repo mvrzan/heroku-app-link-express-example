@@ -30,7 +30,7 @@ const getActivationTargets = async (req, res) => {
 
     res.status(200).send({
       message: "Data Cloud Activation Targets",
-      activationTargets: data,
+      activationTargets: data?.activationTargets,
     });
   } catch (error) {
     console.error(`${getCurrentTimestamp()} ❌ - getActivationTargets - Error occurred: ${error.message}`);
