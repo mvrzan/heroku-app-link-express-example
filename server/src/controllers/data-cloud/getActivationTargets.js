@@ -28,11 +28,22 @@ const getActivationTargets = async (req, res) => {
       `${getCurrentTimestamp()} ✅ - getActivationTargets - Data Cloud activation target information successfully provided!`
     );
 
-    console.log("Data Cloud Activation Targets:", data.activationTargets);
+    const formattedActivationTargets = data.activationTargets?.map((activationTarget) => ({
+      createdBy: activationTarget.createdBy.id,
+      createdDate: activationTarget.createdDate,
+      dataSpace: activationTarget.dataSpace,
+      activationTargetId: activationTarget.id,
+      lastModifiedBy: activationTarget.lastModifiedBy.id,
+      lastModifiedDate: activationTarget.lastModifiedDate,
+      activationTargetName: activationTarget.name,
+      platformName: activationTarget.platformName,
+      platformType: activationTarget.platformType,
+      activationTargetStatus: activationTarget.status,
+    }));
 
     res.status(200).send({
       message: "Data Cloud Activation Targets",
-      activationTargets: data?.activationTargets,
+      activationTargets: formattedActivationTargets,
     });
   } catch (error) {
     console.error(`${getCurrentTimestamp()} ❌ - getActivationTargets - Error occurred: ${error.message}`);
