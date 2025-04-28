@@ -28,6 +28,8 @@ const getActivationTargets = async (req, res) => {
       `${getCurrentTimestamp()} ✅ - getActivationTargets - Data Cloud activation target information successfully provided!`
     );
 
+    console.log("Data Cloud Activation Targets:", data.activationTargets);
+
     res.status(200).send({
       message: "Data Cloud Activation Targets",
       activationTargets: data?.activationTargets,
